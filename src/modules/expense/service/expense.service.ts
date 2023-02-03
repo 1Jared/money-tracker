@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Wallet } from '../../wallet/model/wallet.entity';
 import { Repository } from 'typeorm';
-import { Registration } from '../../registration/model/registration.entity';
 import { Expense } from '../model/expense.entity';
+import { Wallet } from 'src/modules/wallet/model/wallet.entity';
+import { Registration } from 'src/modules/registration/model/registration.entity';
 import { ExpenseInterface } from '../model/expense.interface';
 
 @Injectable()
@@ -33,15 +33,20 @@ export class ExpenseService {
             },
         });
         if (user == null && wallet == null) {
-            //TODO:implement
+            //
         } else {
-            userSaveWithExpense = user;
-            walletSaveWithExpense = wallet;
-            await this.expenseRepository.save({
-                registration: user,
-                wallet: wallet,
-                expenseamount: expense.expenseamount
-            });
+            try{
+                userSaveWithExpense = user;
+                walletSaveWithExpense = wallet;
+                await this.expenseRepository.save({
+                    registration: user,
+                    wallet: wallet,
+                    expenseamount: expense.expenseamount
+                });
+            }catch(error){
+                throw new BadRequestException(error.detail);
+            }
+            
         }
 
 

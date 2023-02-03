@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Registration } from '../model/registration.entity';
@@ -11,6 +11,11 @@ export class RegistrationService {
         private readonly registrationRepository: Repository<Registration>
     ) { }
     createRegistration(registrationInterface: RegistrationInterface) {
-        return this.registrationRepository.save(registrationInterface);
+        try{
+            return this.registrationRepository.save(registrationInterface);
+        }catch(error){
+            throw new BadRequestException(error.detail);
+        }
+        
     }
 }

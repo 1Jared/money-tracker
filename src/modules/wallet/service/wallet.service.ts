@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Wallet } from '../model/wallet.entity';
 import { Repository } from 'typeorm';
@@ -32,20 +32,20 @@ export class WalletService {
         if (user == null) {
             return { msg: 'user does not exist' };
         } else {
-            userSaveWithWallet = user;
-            return await this.walletRepository.save({
-                registration: user,
-                name: wallet.name,
-                balance: wallet.balance,
-            });
+            try{
+                userSaveWithWallet = user;
+                return await this.walletRepository.save({
+                    registration: user,
+                    name: wallet.name,
+                    balance: wallet.balance,
+                });
+            }catch(error){
+                throw new BadRequestException(error.detail);
+            }
+            
         }
 
-
     }
-
-    // public  getWalletInfo(){
-    //     var totalIncomePerWallet =  this.incomeService.findAll()
-    //   }
     public async getWalletInfo(walletId: Wallet["id"]): Promise<any> {
         const wallet = await this.walletRepository
             .createQueryBuilder('w')

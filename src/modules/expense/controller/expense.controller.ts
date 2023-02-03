@@ -1,6 +1,6 @@
 import { Body, Controller, Param, Post } from '@nestjs/common';
 import { ExpenseService } from '../service/expense.service';
-import { ExpenseInterface } from '../expense.interface';
+import { ExpenseInterface } from '../model/expense.interface';
 
 @Controller('expense')
 export class ExpenseController {

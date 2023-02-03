@@ -6,12 +6,16 @@ import { Get, Query } from '@nestjs/common/decorators';
 import { Wallet } from '../model/wallet.entity';
 import { IncomeService } from '../../income/service/income.service';
 import { Income } from '../../income/model/income.entity';
+import { ApiCreatedResponse } from '@nestjs/swagger';
 
 @Controller('wallet')
 export class WalletController {
   constructor(private readonly walletService: WalletService) { }
   //create user wallet
   @Post('createwallet/:userId')
+  @ApiCreatedResponse({
+    description: 'wallet created successfully'
+  })
   setAuthStatus(@Body() body: WalletInterface, @Param('userId') userValue: number): Observable<WalletInterface> {
     return from(this.walletService.createWallet(body, userValue));
   }
