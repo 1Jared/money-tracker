@@ -7,7 +7,7 @@ import { Registration } from '../registration/registration.entity';
 
 @Entity('wallet')
 export class Wallet extends BaseEntity{
-    @ManyToOne(() => Registration, wallet => wallet.wallet)
+    @ManyToOne(() => Registration, wallet => wallet.wallet ,{onDelete:'CASCADE',onUpdate:'CASCADE'})
     registration: Registration;
       @OneToMany(() => Expense, expense => expense.wallet, {cascade: true})
     expense: Expense[];

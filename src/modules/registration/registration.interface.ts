@@ -6,7 +6,7 @@ export interface RegistrationInterface  {
       firstname:String;
       middlename:String;
       lastnamename:String;
-      dob:Date;
+      dob?:Date;
       username:String;
       userpass:String;
       

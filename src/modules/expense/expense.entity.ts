@@ -4,7 +4,7 @@ import { Wallet } from '../wallet/wallet.entity';
 
 @Entity('expense')
 export class Expense extends BaseEntity{
-    @ManyToOne(() => Wallet, wallet=> wallet.expense)
+    @ManyToOne(() => Wallet, wallet=> wallet.expense,{onDelete:'CASCADE',onUpdate:'CASCADE'})
     wallet: Wallet;
     @Column( {type: 'integer' })
       expenseamount:number;
