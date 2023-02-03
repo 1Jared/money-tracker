@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { RegistrationService } from './registration.service';
-import { RegistrationController } from './registration.controller';
+import { RegistrationService } from './service/registration.service';
+import { RegistrationController } from './controller/registration.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Registration } from './registration.entity';
-import { WalletService } from '../wallet/wallet.service';
+import { Registration } from './model/registration.entity';
+import { WalletService } from '../wallet/service/wallet.service';
 
 @Module({
   imports: [

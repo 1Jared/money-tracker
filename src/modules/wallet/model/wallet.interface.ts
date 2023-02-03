@@ -1,4 +1,4 @@
-import { Registration } from "../registration/registration.entity";
+import { Registration } from "../../registration/model/registration.entity";
 
 export interface WalletInterface  {
     id:number;

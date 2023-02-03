@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Wallet } from '../wallet/wallet.entity';
+import { Wallet } from '../../wallet/model/wallet.entity';
 import { Repository } from 'typeorm';
-import { Registration } from '../registration/registration.entity';
-import { Expense } from './expense.entity';
-import { ExpenseInterface } from './expense.interface';
+import { Registration } from '../../registration/model/registration.entity';
+import { Expense } from '../model/expense.entity';
+import { ExpenseInterface } from '../model/expense.interface';
 
 @Injectable()
 export class ExpenseService {
@@ -14,36 +14,36 @@ export class ExpenseService {
         @InjectRepository(Wallet)
         private readonly walletRepository: Repository<Wallet>,
         @InjectRepository(Registration)
-        private readonly registrationRfepository: Repository<Registration> 
-        
-    ){}
-    public async insertExpense(expense: ExpenseInterface,userId:Registration["id"],walletId:Wallet["id"]):Promise<void>{
+        private readonly registrationRfepository: Repository<Registration>
+
+    ) { }
+    public async insertExpense(expense: ExpenseInterface, userId: Registration["id"], walletId: Wallet["id"]): Promise<void> {
         let userSaveWithExpense: Registration;
         let walletSaveWithExpense: Wallet;
         //check if user exists in the database
-        const user=await this.registrationRfepository.findOne({
+        const user = await this.registrationRfepository.findOne({
             where: {
                 id: userId,
             },
         });
         //check if wallet exists in the database
-        const wallet=await this.walletRepository.findOne({
+        const wallet = await this.walletRepository.findOne({
             where: {
                 id: walletId,
             },
         });
-        if (user==null && wallet==null) {
+        if (user == null && wallet == null) {
             //TODO:implement
         } else {
             userSaveWithExpense = user;
-            walletSaveWithExpense=wallet;
+            walletSaveWithExpense = wallet;
             await this.expenseRepository.save({
                 registration: user,
-                wallet:wallet,
+                wallet: wallet,
                 expenseamount: expense.expenseamount
             });
         }
-        
+
 
     }
 }

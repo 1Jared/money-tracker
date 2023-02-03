@@ -1,16 +1,19 @@
 import { Module } from '@nestjs/common';
-import { WalletService } from './wallet.service';
-import { WalletController } from './wallet.controller';
+import { WalletService } from './service/wallet.service';
+import { WalletController } from './controller/wallet.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Wallet } from './wallet.entity';
-import { Registration } from '../registration/registration.entity';
-import { RegistrationService } from '../registration/registration.service';
+import { Wallet } from './model/wallet.entity';
+import { Registration } from '../registration/model/registration.entity';
+import { RegistrationService } from '../registration/service/registration.service';
 import { RegistrationModule } from '../registration/registration.module';
+import { IncomeService } from '../income/service/income.service';
+import { Income } from '../income/model/income.entity';
+import { Expense } from '../expense/model/expense.entity';
 
 @Module({
   imports: [
     RegistrationModule,
-    TypeOrmModule.forFeature([Wallet,Registration])
+    TypeOrmModule.forFeature([Wallet,Registration,Income,Expense])
   ],
   controllers: [WalletController],
   providers: [WalletService]

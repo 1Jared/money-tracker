@@ -1,9 +1,9 @@
 import { type } from 'os';
 import { BaseEntity } from 'src/base-entity';
 import{Column, Entity, ManyToOne, OneToMany} from 'typeorm'
-import { Expense } from '../expense/expense.entity';
-import { Income } from '../income/income.entity';
-import { Registration } from '../registration/registration.entity';
+import { Expense } from '../../expense/model/expense.entity';
+import { Income } from '../../income/model/income.entity';
+import { Registration } from '../../registration/model/registration.entity';
 
 @Entity('wallet')
 export class Wallet extends BaseEntity{
