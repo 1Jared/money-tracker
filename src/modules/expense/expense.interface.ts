@@ -1,12 +1,12 @@
 import { Registration } from "../registration/registration.entity";
 import { Wallet } from "../wallet/wallet.entity";
 
-export interface IncomeInterface  {
+export interface ExpenseInterface  {
     id:number;
       createdate?:Date;
       txndate?:Date;
       wallet:Wallet;
       registration:Registration;
-      incomeamount?:number;
+      expenseamount?:number;
       
 }

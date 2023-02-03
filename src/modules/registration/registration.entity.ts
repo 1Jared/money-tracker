@@ -3,6 +3,7 @@ import { BaseEntity } from 'src/base-entity';
 import{Column, Entity, OneToMany} from 'typeorm'
 import { Wallet } from '../wallet/wallet.entity';
 import { Income } from '../income/income.entity';
+import { Expense } from '../expense/expense.entity';
 
 @Entity('user')
 export class Registration extends BaseEntity{
@@ -22,5 +23,7 @@ export class Registration extends BaseEntity{
     wallet: Wallet[];
     @OneToMany(() => Income, income => income.registration, {cascade: true})
     income: Income[];
+    @OneToMany(() => Expense, expense => expense.registration, {cascade: true})
+    expense: Expense[];
       
 }
